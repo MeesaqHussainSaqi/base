@@ -2,10 +2,18 @@
 namespace App\Repositories\User;
 
 use App\Models\User;
+use App\Repositories\BaseRepository;
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
+    public function __construct(User $user, Request $request)
+    {
+        $this->model = $user;
+        $this->modelName = class_basename($this->model);
+    }
     public function create(array $data)
     {
         $data['password'] = bcrypt($data['password']);
@@ -16,8 +24,18 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::where('email', $email)->first();
     }
-    public function GetAll()
+    public function GetAll($req)
     {
-        return User::all();
+        $search = $req['search'] ?? null;
+        parent::SetPaginationDetails($req);
+        $this->query = $this->model->newQuery();
+        if (!empty($search)) {
+            $search = $this->search;
+            $this->query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+        return parent::GetAll($req);
     }
 }
