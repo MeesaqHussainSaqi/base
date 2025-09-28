@@ -11,25 +11,10 @@ class AuthController extends Controller
 {
     public function __construct(protected AuthService $authService) {}
 
-    public function create(RegisterRequest $request)
-    {
-        // return response()->json($this->authService->register($request->validated()), 201);
-        return new UserResource($this->authService->create($request->validated()));
-    }
-
     public function login(LoginRequest $request)
     {
         // return "login";
         return response()->json($this->authService->login($request->validated()));
-    }
-    public function GetAll()
-    {
-        return "GetAll";
-        // return response()->json($this->authService->GetAll());
-    }
-    public function profile()
-    {
-        // return response()->json(auth()->user());
     }
 
     public function logout()
