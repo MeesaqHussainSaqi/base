@@ -38,4 +38,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         }
         return parent::GetAll($req);
     }
+    public function GetById($id){
+        // $this->query = $this->model->newQuery();
+        // $this->model = $this->model->find($id);
+        return parent::GetById($id);
+    }
 }

@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
 
         Route::get('', [UserController::class, 'GetAll']);
-        Route::get('/{id}', [UserController::class, 'show']);
+        Route::get('/{id}', [UserController::class, 'GetById']);
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [AuthController::class, 'destroy']);
     });

@@ -19,6 +19,10 @@ class UserController extends Controller
     {
         return response()->json($this->userService->GetAll($req));
     }
+    public function GetById(Request $req)
+    {
+        return response()->json($this->userService->GetById($req));
+    }
     public function profile()
     {
         // return response()->json(auth()->user());
