@@ -8,15 +8,28 @@ abstract class BaseService
     public function SetGridResponse($data) 
     { 
         return [
-            'results' => $data->items(),
+            'results' => [
+                'values' => $data->items()
+            ],
             'pagination' => [
                 'total'        => $data->total(),
-                'per_page'     => $data->perPage(),
+                'page_size'     => $data->perPage(),
                 'current_page' => $data->currentPage(),
                 'last_page'    => $data->lastPage(),
                 'order_by'     => $this->orderBy,
                 'order_direction' => $this->orderDirection,
             ]
+        ];
+     } 
+     public function SetSingleResponse($data) 
+    { 
+        return [
+            'results' => (object)[
+                'values' => $data
+            ],
+            'code' => 200,
+            'message' => 'Record fetched successfully',
+            'status' => 'success'
         ];
      } 
     

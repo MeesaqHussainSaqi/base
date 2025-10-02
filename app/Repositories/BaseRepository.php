@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class BaseRepository 
+abstract class BaseRepository 
 {
     protected $model;
     protected $modelName = '';
@@ -48,6 +48,10 @@ class BaseRepository
         return $this->query->orderBy($this->orderBy, $this->orderDirection)
                      ->paginate($this->pageSize, ['*'], 'page', $this->page);
     }
+    public function GetById($id)
+    {
+        return $this->model->newQuery()->find($id);
+    }
     protected function SetPaginationDetails($request)
     {
         $this->orderBy = $request['order_by'] ?? $this->orderBy;
@@ -55,6 +59,5 @@ class BaseRepository
         $this->pageSize = $request['page_size'] ?? $this->pageSize;
         $this->page = $request['page'] ?? $this->page;
         $this->search = $request['search'] ?? $this->search;
-        // $this->total = $request->total ?? $this->orderBy;
     }
 }

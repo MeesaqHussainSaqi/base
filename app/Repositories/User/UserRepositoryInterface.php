@@ -8,4 +8,6 @@ interface UserRepositoryInterface
     public function create(array $data);
     public function findByEmail(string $email);
     public function GetAll(array $data);
+    public function GetById($id);
+
 }

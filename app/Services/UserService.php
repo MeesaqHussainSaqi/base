@@ -26,4 +26,9 @@ class UserService extends BaseService
         $users = $this->userRepository->GetAll($req->all());
         return $this->SetGridResponse(UserResource::collection($users),$users->count());
     }
+    public function GetById($req)
+    {
+        $user = $this->userRepository->GetById($req['id']);
+        return $this->SetSingleResponse(new UserResource($user));
+    }
 }
