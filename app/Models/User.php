@@ -20,9 +20,18 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'school_id',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'phone',
+        'address',
+        'user_type_id',
+        'last_login_at',
+        'status',
+        'created_by',
+        'deleted_by',
     ];
 
     /**
@@ -35,16 +44,30 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    // protected function casts(): array
+    // A user belongs to a school
+    // public function school()
     // {
-    //     return [
-    //         'email_verified_at' => 'datetime',
-    //         'password' => 'hashed',
-    //     ];
+    //     return $this->belongsTo(School::class);
     // }
+
+    // A user has a user type (Principal, Teacher, etc.)
+    // public function userType()
+    // {
+    //     return $this->belongsTo(UserType::class);
+    // }
+
+    // User who created this record
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+    // User who deleted this record
+    public function deletedBy()
+    {
+        return $this->belongsTo(User::class, 'deleted_by');
+    }
 }

@@ -11,10 +11,10 @@ use Laravel\Sanctum\PersonalAccessToken;
 // });
 
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [UserController::class, 'create']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/users')->group(function () {
-        Route::post('/register', [UserController::class, 'create']);
         Route::get('/profile', [UserController::class, 'profile']);
         Route::post('/logout', [AuthController::class, 'logout']);
 
